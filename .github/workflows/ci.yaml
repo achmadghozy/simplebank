@@ -40,5 +40,5 @@ jobs:
     - name: Run migrations
     - run: make migrateup
 
-    - name: Test
+    - name: ci-test
       run: go test -v ./...
