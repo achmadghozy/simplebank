@@ -102,30 +102,3 @@ func TestListAccounts(t *testing.T) {
 		require.Equal(t, lastAccount.Owner, account.Owner)
 	}
 }
-
-func CreateRandomEntry(t *testing.T) Entries {
-	arg1 := ListAccountsParams{
-		Limit:  5,
-		Offset: 5,
-	}
-
-	accounts, err := testQueries.ListAccounts(context.Background(), arg1)
-	nAcc := len(accounts)
-
-	arg := CreateEntryParams{
-		AccountID: util.RandomInt(0, int64(nAcc)),
-		Amount:    util.RandomMoney(),
-	}
-
-	entry, err := testQueries.CreateEntry(context.Background(), arg)
-	require.NoError(t, err)
-	require.NotEmpty(t, entry)
-
-	require.Equal(t, arg.AccountID, entry.AccountID)
-	require.Equal(t, arg.Amount, entry.Amount)
-
-	require.NotZero(t, entry.AccountID)
-	require.NotZero(t, entry.CreatedAt)
-
-	return entry
-}
